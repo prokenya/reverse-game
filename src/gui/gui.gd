@@ -10,6 +10,14 @@ class_name GUI
 @onready var main_menu_button: Button = $HBoxContainer/ui/NinePatchRect/menu/main_menu_button
 @onready var play: Button = %Play
 
+@onready var resume_button: Button = $"HBoxContainer/ui/NinePatchRect/menu/resume button"
+@onready var mobile_menu: Button = $"mobile menu"
+@onready var mobile_togle: CheckButton = $"HBoxContainer/ui/NinePatchRect/menu/GridContainer/mobile togle"
+@onready var mobile_togle_label: Label = $"HBoxContainer/ui/NinePatchRect/menu/GridContainer/mobile togle label"
+
+
+@onready var virtual_joystick_left: VirtualJoystick = $"VBoxContainer/Virtual joystick left"
+
 
 
 var is_in_ui:bool = true
@@ -30,6 +38,7 @@ var enthusiasm_tween:Tween
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_audio()
+	mobile_togle.button_pressed = G.plathorm == "touchscreen"
 
 
 #region set
@@ -96,13 +105,20 @@ func _on_play_pressed(id:int = 0) -> void:
 	load_game(id)
 	main_menu_button.visible = true
 	stats.visible = true
+	
+	resume_button.visible = true
+	mobile_togle.visible = false
+	mobile_togle_label.visible = false
+	
+	play.visible = false
 
 func load_game(id:int = 0):
 	await set_transition()
 	G.main.spawn_player(Vector2(-340,0),3,id)
 	G.main.load_world(id)
 	G.main.current_world_id = id
-	play.visible = false
+	if G.plathorm != "PC":
+		virtual_joystick_left.visible = true
 	await set_transition(false)
 	if id not in G.data.active_buttons:
 		G.data.active_buttons.append(id)
@@ -149,7 +165,8 @@ func open_close_menu():
 		get_tree().paused = !is_in_ui
 		await gui_animations.animation_finished
 		
-	
+	if G.plathorm != "PC":
+		mobile_menu.visible = is_in_ui
 	
 	is_in_ui = !is_in_ui
 	get_tree().paused = is_in_ui
@@ -188,3 +205,10 @@ func show_end():
 	end.show()
 	await  get_tree().create_timer(10).timeout
 	_on_main_menu_pressed()
+
+
+func _on_mobile_togle_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		G.plathorm = "touchscreen"
+	else:
+		G.plathorm = "PC"

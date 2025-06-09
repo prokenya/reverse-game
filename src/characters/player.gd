@@ -34,8 +34,11 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if !control: return
-	var mouse_pos = get_global_mouse_position()
-	rotation = (mouse_pos - global_position).angle() + PI/2
+	if G.plathorm == "PC":
+		var mouse_pos = get_global_mouse_position()
+		rotation = (mouse_pos - global_position).angle() + PI / 2
+	else:
+		mobile_rotate(event)
 
 
 func _on_timer_timeout() -> void:
@@ -71,3 +74,22 @@ func animate_flash(duration: float = 0.3, cycles: int = 1) -> void:
 		tween.tween_property(shader_material, "shader_parameter/factor", 1.0, duration / 2)
 		tween.tween_property(shader_material, "shader_parameter/factor", 0.0, duration / 2)
 	await tween.finished
+
+
+var current_index := -1
+func mobile_rotate(event: InputEvent) -> void:
+	var joystick_area := G.main.gui.virtual_joystick_left.get_global_rect()
+	#print(str(joystick_area) + " - " + str(event.position))
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			if !joystick_area.has_point(event.position):
+				current_index = event.index
+		elif event.index == current_index:
+			current_index = -1
+
+	elif event is InputEventScreenDrag:
+		if event.index != current_index:
+			return
+		var touch_pos = event.position
+		var screen_center = get_viewport_rect().size / 2.0
+		rotation = (touch_pos - screen_center).angle() + PI / 2

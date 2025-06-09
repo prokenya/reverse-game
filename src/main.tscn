@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://dgvn2mbhuljwj"]
+[gd_scene load_steps=22 format=4 uid="uid://dgvn2mbhuljwj"]
 
 [ext_resource type="Script" uid="uid://dla2kg6fwr1eg" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://d1dckrw7uym6u" path="res://src/worlds/world1.tscn" id="2_3cfgd"]
@@ -10,13 +10,16 @@
 [ext_resource type="Theme" uid="uid://kl4uy5tx6k4b" path="res://src/theme.tres" id="6_kmhfv"]
 [ext_resource type="PackedScene" uid="uid://bxwtqn3t2xy4m" path="res://src/characters/players/player3.tscn" id="7_uewes"]
 [ext_resource type="TileSet" uid="uid://c6vgl27v2h81e" path="res://src/tileset.tres" id="8_5mrjc"]
+[ext_resource type="Script" uid="uid://bn8vdtbofrwyf" path="res://addons/virtual_joystick/virtual_joystick.gd" id="10_uewes"]
+[ext_resource type="Texture2D" uid="uid://bm30au8mjfc2f" path="res://addons/virtual_joystick/textures/joystick_base_outline.png" id="11_srxbw"]
+[ext_resource type="Texture2D" uid="uid://dt13r06u87fib" path="res://addons/virtual_joystick/textures/joystick_tip_arrows.png" id="12_d3u4l"]
 
 [sub_resource type="Animation" id="Animation_5q4o7"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("gui/chatc/chat:self_modulate")
+tracks/0/path = NodePath("gui/VBoxContainer/chatc/chat:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -28,7 +31,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("gui/chatc/chat:text")
+tracks/1/path = NodePath("gui/VBoxContainer/chatc/chat:text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -40,7 +43,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("gui/chatc/chat:visible")
+tracks/2/path = NodePath("gui/VBoxContainer/chatc/chat:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -56,7 +59,7 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("gui/chatc/chat:self_modulate")
+tracks/0/path = NodePath("gui/VBoxContainer/chatc/chat:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +71,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("gui/chatc/chat:text")
+tracks/1/path = NodePath("gui/VBoxContainer/chatc/chat:text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -80,7 +83,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("gui/chatc/chat:visible")
+tracks/2/path = NodePath("gui/VBoxContainer/chatc/chat:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -96,7 +99,7 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("gui/chatc/chat:self_modulate")
+tracks/0/path = NodePath("gui/VBoxContainer/chatc/chat:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -108,7 +111,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("gui/chatc/chat:text")
+tracks/1/path = NodePath("gui/VBoxContainer/chatc/chat:text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -120,7 +123,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("gui/chatc/chat:visible")
+tracks/2/path = NodePath("gui/VBoxContainer/chatc/chat:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -318,15 +321,19 @@ grow_vertical = 2
 theme = ExtResource("6_kmhfv")
 script = ExtResource("2_5q4o7")
 
-[node name="chatc" type="PanelContainer" parent="GUI/gui"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/gui"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
+offset_top = -4.0
 grow_vertical = 0
 
-[node name="chat" type="Label" parent="GUI/gui/chatc"]
+[node name="chatc" type="PanelContainer" parent="GUI/gui/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="chat" type="Label" parent="GUI/gui/VBoxContainer/chatc"]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
@@ -336,12 +343,62 @@ theme = ExtResource("6_kmhfv")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "player connected!"
 
-[node name="chat animation" type="AnimationPlayer" parent="GUI/gui/chatc/chat"]
+[node name="chat animation" type="AnimationPlayer" parent="GUI/gui/VBoxContainer/chatc/chat"]
 unique_name_in_owner = true
-root_node = NodePath("../../../..")
+root_node = NodePath("../../../../..")
 libraries = {
 &"": SubResource("AnimationLibrary_3cfgd")
 }
+
+[node name="Virtual joystick left" type="Control" parent="GUI/gui/VBoxContainer"]
+process_mode = 3
+visible = false
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+script = ExtResource("10_uewes")
+action_left = "move_left"
+action_right = "move_right"
+action_up = "move_up"
+action_down = "move_down"
+
+[node name="Base" type="TextureRect" parent="GUI/gui/VBoxContainer/Virtual joystick left"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(100, 100)
+mouse_force_pass_scroll_events = false
+texture = ExtResource("11_srxbw")
+stretch_mode = 5
+
+[node name="Tip" type="TextureRect" parent="GUI/gui/VBoxContainer/Virtual joystick left/Base"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(50, 50)
+texture = ExtResource("12_d3u4l")
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/gui"]
 layout_mode = 1
@@ -371,7 +428,7 @@ text = "Controls:
     A – Move Left
     S – Move Down
     D – Move Right
-	MouseMotion - rotation
+	MouseMotion/ScreenDrag - rotation
 
     M / Esc– Show Menu 
 
@@ -407,6 +464,13 @@ alignment = 1
 [node name="Container" type="Container" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.7
+
+[node name="resume button" type="Button" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+text = "resume"
 
 [node name="Play" type="Button" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
 unique_name_in_owner = true
@@ -448,21 +512,42 @@ columns = 2
 
 [node name="Label" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "sfx"
 horizontal_alignment = 2
 
 [node name="SFXSpinBox" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.5
+alignment = 1
 
 [node name="Label2" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 text = "music"
 horizontal_alignment = 2
 
 [node name="music_spin_box" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+alignment = 1
+
+[node name="mobile togle label" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "mobile"
+
+[node name="mobile togle" type="CheckButton" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+focus_mode = 0
 
 [node name="guianimation" type="AnimationPlayer" parent="GUI/gui"]
 libraries = {
@@ -508,6 +593,17 @@ theme = ExtResource("6_kmhfv")
 value = 100.0
 show_percentage = false
 
+[node name="mobile menu" type="Button" parent="GUI/gui"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+text = "menu"
+
 [node name="transirion layer" type="CanvasLayer" parent="GUI"]
 layer = 128
 
@@ -549,8 +645,11 @@ thanks for playing"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/resume button" to="GUI/gui" method="open_close_menu"]
 [connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/Play" to="GUI/gui" method="_on_play_pressed"]
 [connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/how to play" to="GUI/gui" method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/main_menu_button" to="GUI/gui" method="_on_main_menu_pressed"]
 [connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/SFXSpinBox" to="GUI/gui" method="_on_spinsfx_value_changed"]
 [connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/music_spin_box" to="GUI/gui" method="_on_spinmusic_value_changed"]
+[connection signal="toggled" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/mobile togle" to="GUI/gui" method="_on_mobile_togle_toggled"]
+[connection signal="pressed" from="GUI/gui/mobile menu" to="GUI/gui" method="open_close_menu"]
