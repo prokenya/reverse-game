@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=4 uid="uid://bmj7ad0njonhr"]
+
+[ext_resource type="Script" uid="uid://b2hmrtqn1ime6" path="res://src/characters/player.gd" id="1_3ikja"]
+[ext_resource type="Texture2D" uid="uid://60w3gdt0s5kd" path="res://assets/tiles/bossSET.png" id="2_3ikja"]
+[ext_resource type="Shader" uid="uid://cqtpq68obqgkq" path="res://src/shaders/damage_flash.gdshader" id="2_78r85"]
+[ext_resource type="Texture2D" uid="uid://s3ajphaio3tq" path="res://assets/sprites/crossbow.png" id="3_4c870"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78r85"]
+size = Vector2(42, 37)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjtsg"]
+shader = ExtResource("2_78r85")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/factor = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4c870"]
+texture = ExtResource("2_3ikja")
+0:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_78r85"]
+sources/0 = SubResource("TileSetAtlasSource_4c870")
+
+[node name="player" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 3
+motion_mode = 1
+script = ExtResource("1_3ikja")
+max_hp = 7
+hp = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_78r85")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+material = SubResource("ShaderMaterial_wjtsg")
+tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAABAP//AAABAAAAAAABAAAAAAABAAAAAAD+////AAABAAAAADD+/wAAAAABAAAAADD//wEAAAABAAAAAFAAAAEAAAABAAAAAFD+/wEAAAABAAEAAFABAAEAAAABAAEAAAA=")
+tile_set = SubResource("TileSet_78r85")
+
+[node name="weapons" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="weapons"]
+position = Vector2(-9, -24)
+texture = ExtResource("3_4c870")
+hframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="weapons"]
+position = Vector2(8, -24)
+texture = ExtResource("3_4c870")
+hframes = 2
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

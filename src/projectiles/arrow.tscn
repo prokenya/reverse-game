@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://yof7cddnosjr"]
+
+[ext_resource type="Script" uid="uid://10qpwsic6sf0" path="res://src/projectiles/arrow.gd" id="1_xqoie"]
+[ext_resource type="Texture2D" uid="uid://ba7b2hiejn0ax" path="res://assets/sprites/arrow.png" id="2_6gv7v"]
+[ext_resource type="AudioStream" uid="uid://bnlqbwcqvrfq7" path="res://assets/audio/sfx/hit.wav" id="3_6gv7v"]
+[ext_resource type="AudioStream" uid="uid://bsy5mqrbyuati" path="res://assets/audio/sfx/hit3.wav" id="3_6kahc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xqoie"]
+radius = 30.0
+height = 80.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xqoie"]
+size = Vector2(5, 16)
+
+[node name="arrow" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_xqoie")
+streams = Array[AudioStream]([ExtResource("3_6gv7v"), ExtResource("3_6kahc")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2_6gv7v")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(0, -16)
+collision_mask = 4
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_xqoie")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xqoie")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6gv7v")
+volume_db = -5.0
+bus = &"sfx"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

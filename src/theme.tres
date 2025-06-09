@@ -1,0 +1,78 @@
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://kl4uy5tx6k4b"]
+
+[ext_resource type="Texture2D" uid="uid://bjccrsej3my1c" path="res://assets/icons/button.png" id="1_if6vc"]
+[ext_resource type="FontFile" uid="uid://bj8twd8jhovqh" path="res://assets/font/PixeloidSans.ttf" id="2_ssy0u"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m734d"]
+texture = ExtResource("1_if6vc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_if6vc"]
+texture = ExtResource("1_if6vc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xh1a0"]
+texture = ExtResource("1_if6vc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k27xv"]
+texture = ExtResource("1_if6vc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssy0u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Gradient" id="Gradient_7v0db"]
+colors = PackedColorArray(0, 0, 0, 0.752941, 0, 0, 0, 0.752941)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_if6vc"]
+gradient = SubResource("Gradient_7v0db")
+height = 25
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ssy0u"]
+texture = SubResource("GradientTexture2D_if6vc")
+texture_margin_left = 200.0
+
+[sub_resource type="Gradient" id="Gradient_if6vc"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ssy0u"]
+gradient = SubResource("Gradient_if6vc")
+height = 25
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rnpv8"]
+texture = SubResource("GradientTexture2D_ssy0u")
+
+[resource]
+default_font = ExtResource("2_ssy0u")
+default_font_size = 25
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/styles/disabled = SubResource("StyleBoxTexture_m734d")
+Button/styles/focus = SubResource("StyleBoxTexture_if6vc")
+Button/styles/hover = SubResource("StyleBoxTexture_xh1a0")
+Button/styles/normal = SubResource("StyleBoxTexture_k27xv")
+Button/styles/pressed = SubResource("StyleBoxFlat_ssy0u")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_ssy0u")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_rnpv8")

@@ -1,0 +1,556 @@
+[gd_scene load_steps=19 format=4 uid="uid://dgvn2mbhuljwj"]
+
+[ext_resource type="Script" uid="uid://dla2kg6fwr1eg" path="res://src/main.gd" id="1_eewff"]
+[ext_resource type="PackedScene" uid="uid://d1dckrw7uym6u" path="res://src/worlds/world1.tscn" id="2_3cfgd"]
+[ext_resource type="Script" uid="uid://btyeog2ykr5kc" path="res://src/gui/gui.gd" id="2_5q4o7"]
+[ext_resource type="PackedScene" uid="uid://bmj7ad0njonhr" path="res://src/characters/players/player1.tscn" id="3_kmhfv"]
+[ext_resource type="PackedScene" uid="uid://cuv60htd5shpe" path="res://src/worlds/world2.tscn" id="3_rlaii"]
+[ext_resource type="PackedScene" uid="uid://c4ev2l3vvycgp" path="res://src/worlds/world3.tscn" id="4_mgm53"]
+[ext_resource type="PackedScene" uid="uid://b4iaagxkyp3is" path="res://src/characters/players/player2.tscn" id="4_rlaii"]
+[ext_resource type="Theme" uid="uid://kl4uy5tx6k4b" path="res://src/theme.tres" id="6_kmhfv"]
+[ext_resource type="PackedScene" uid="uid://bxwtqn3t2xy4m" path="res://src/characters/players/player3.tscn" id="7_uewes"]
+[ext_resource type="TileSet" uid="uid://c6vgl27v2h81e" path="res://src/tileset.tres" id="8_5mrjc"]
+
+[sub_resource type="Animation" id="Animation_5q4o7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("gui/chatc/chat:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("gui/chatc/chat:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["player connected!"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gui/chatc/chat:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_gh0ne"]
+resource_name = "player connected"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("gui/chatc/chat:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("gui/chatc/chat:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["player connected!"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gui/chatc/chat:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_3cfgd"]
+resource_name = "player disconnected"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("gui/chatc/chat:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("gui/chatc/chat:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["player disconnected!"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gui/chatc/chat:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3cfgd"]
+_data = {
+&"RESET": SubResource("Animation_5q4o7"),
+&"player connected": SubResource("Animation_gh0ne"),
+&"player disconnected": SubResource("Animation_3cfgd")
+}
+
+[sub_resource type="Animation" id="Animation_kmhfv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/ui/NinePatchRect:patch_margin_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [200]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/ui/NinePatchRect/menu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer/ui/NinePatchRect/menu:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HBoxContainer/guide/NinePatchRect:patch_margin_right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HBoxContainer/guide/VBoxContainer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HBoxContainer/guide/VBoxContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rlaii"]
+resource_name = "show guide"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/guide/NinePatchRect:patch_margin_right")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 430]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/guide/VBoxContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer/guide/VBoxContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fyndt"]
+resource_name = "show menu"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/ui/NinePatchRect:patch_margin_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 200]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/ui/NinePatchRect/menu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer/ui/NinePatchRect/menu:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rlaii"]
+_data = {
+&"RESET": SubResource("Animation_kmhfv"),
+&"show guide": SubResource("Animation_rlaii"),
+&"show menu": SubResource("Animation_fyndt")
+}
+
+[node name="main" type="Node" node_paths=PackedStringArray("gui")]
+script = ExtResource("1_eewff")
+worlds = Array[PackedScene]([ExtResource("2_3cfgd"), ExtResource("3_rlaii"), ExtResource("4_mgm53")])
+players = Array[PackedScene]([ExtResource("3_kmhfv"), ExtResource("4_rlaii"), ExtResource("7_uewes")])
+gui = NodePath("GUI/gui")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="gui" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_kmhfv")
+script = ExtResource("2_5q4o7")
+
+[node name="chatc" type="PanelContainer" parent="GUI/gui"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+grow_vertical = 0
+
+[node name="chat" type="Label" parent="GUI/gui/chatc"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+theme = ExtResource("6_kmhfv")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "player connected!"
+
+[node name="chat animation" type="AnimationPlayer" parent="GUI/gui/chatc/chat"]
+unique_name_in_owner = true
+root_node = NodePath("../../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_3cfgd")
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/gui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="guide" type="PanelContainer" parent="GUI/gui/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/gui/HBoxContainer/guide"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GUI/gui/HBoxContainer/guide/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Controls:
+	W - Move Up
+    A – Move Left
+    S – Move Down
+    D – Move Right
+	MouseMotion - rotation
+
+    M / Esc– Show Menu 
+
+[color=red]hint:[/color]
+Arrows shot near the player increase their attention, but if you hit the player, they will die and you’ll fail the level.
+
+[color=green]About the game:[/color]
+You are the boss in the game, and your task is to keep the player's attention so they don’t quit. But don’t go too easy on them — if it gets boring, they’ll leave.
+Your goal is to die *to* the player, but not let them get bored in the process.
+"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GUI/gui/HBoxContainer/guide"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ui" type="PanelContainer" parent="GUI/gui/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GUI/gui/HBoxContainer/ui"]
+layout_mode = 2
+patch_margin_left = 200
+
+[node name="menu" type="VBoxContainer" parent="GUI/gui/HBoxContainer/ui/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Container" type="Container" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Play" type="Button" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "play"
+
+[node name="how to play" type="Button" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+layout_mode = 2
+focus_mode = 0
+text = "how to play"
+
+[node name="main_menu_button" type="Button" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+text = "main menu"
+
+[node name="HSeparator2" type="HSeparator" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.3
+
+[node name="levels" type="VBoxContainer" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+layout_mode = 2
+text = "sfx"
+horizontal_alignment = 2
+
+[node name="SFXSpinBox" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+layout_mode = 2
+text = "music"
+horizontal_alignment = 2
+
+[node name="music_spin_box" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="guianimation" type="AnimationPlayer" parent="GUI/gui"]
+libraries = {
+&"": SubResource("AnimationLibrary_rlaii")
+}
+speed_scale = 5.0
+
+[node name="stats" type="PanelContainer" parent="GUI/gui"]
+visible = false
+layout_mode = 1
+offset_right = 292.0
+offset_bottom = 32.0
+
+[node name="GridContainer" type="GridContainer" parent="GUI/gui/stats"]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 2
+
+[node name="Label" type="Label" parent="GUI/gui/stats/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 10
+text = "boss hp:"
+
+[node name="hp" type="ProgressBar" parent="GUI/gui/stats/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme = ExtResource("6_kmhfv")
+value = 100.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="GUI/gui/stats/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "player attention:"
+
+[node name="enthusiasm" type="ProgressBar" parent="GUI/gui/stats/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme = ExtResource("6_kmhfv")
+value = 100.0
+show_percentage = false
+
+[node name="transirion layer" type="CanvasLayer" parent="GUI"]
+layer = 128
+
+[node name="transition" type="ColorRect" parent="GUI/transirion layer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GUI"]
+layer = -128
+
+[node name="TileMapLayer" type="TileMapLayer" parent="GUI/CanvasLayer"]
+tile_map_data = PackedByteArray("AAAnABYAAAABAAEAAAAnABUAAAABAAEAAAAnABQAAAABAAEAAAAnABMAAAABAAEAAAAnABIAAAABAAEAAAAnABEAAAABAAEAAAAnABAAAAABAAEAAAAnAA8AAAABAAEAAAAnAA4AAAABAAEAAAAnAA0AAAABAAEAAAAnAAwAAAABAAEAAAAnAAsAAAABAAEAAAAnAAoAAAABAAEAAAAnAAkAAAABAAEAAAAnAAgAAAABAAEAAAAnAAcAAAABAAEAAAAnAAYAAAABAAEAAAAnAAUAAAABAAEAAAAnAAQAAAABAAEAAAAnAAMAAAABAAEAAAAnAAIAAAABAAEAAAAnAAEAAAABAAEAAAAnAAAAAAABAAEAAAAmABYAAAABAAEAAAAmABUAAAABAAEAAAAmABQAAAABAAEAAAAmABMAAAABAAEAAAAmABIAAAABAAEAAAAmABEAAAABAAEAAAAmABAAAAABAAEAAAAmAA8AAAABAAEAAAAmAA4AAAABAAEAAAAmAA0AAAABAAEAAAAmAAwAAAABAAEAAAAmAAsAAAABAAEAAAAmAAoAAAABAAEAAAAmAAkAAAABAAEAAAAmAAgAAAABAAEAAAAmAAcAAAABAAEAAAAmAAYAAAABAAEAAAAmAAUAAAABAAEAAAAmAAQAAAABAAEAAAAmAAMAAAABAAEAAAAmAAIAAAABAAEAAAAmAAEAAAABAAEAAAAmAAAAAAABAAEAAAAlABYAAAABAAEAAAAlABUAAAABAAEAAAAlABQAAAABAAEAAAAlABMAAAABAAEAAAAlABIAAAABAAEAAAAlABEAAAABAAEAAAAlABAAAAABAAEAAAAlAA8AAAABAAEAAAAlAA4AAAABAAEAAAAlAA0AAAABAAEAAAAlAAwAAAABAAEAAAAlAAsAAAABAAEAAAAlAAoAAAABAAEAAAAlAAkAAAABAAEAAAAlAAgAAAABAAEAAAAlAAcAAAABAAEAAAAlAAYAAAABAAEAAAAlAAUAAAABAAEAAAAlAAQAAAABAAEAAAAlAAMAAAABAAEAAAAlAAIAAAABAAEAAAAlAAEAAAABAAEAAAAlAAAAAAABAAEAAAAkABYAAAABAAEAAAAkABUAAAAEAAIAAAAkABQAAAACAAEAAAAkABMAAAACAAEAAAAkABIAAAAAAAEAAAAkABEAAAAEAAEAAAAkABAAAAAAAAEAAAAkAA8AAAAAAAEAAAAkAA4AAAAAAAEAAAAkAA0AAAAEAAEAAAAkAAwAAAAAAAEAAAAkAAsAAAAEAAEAAAAkAAoAAAAAAAEAAAAkAAkAAAAEAAEAAAAkAAgAAAACAAEAAAAkAAcAAAACAAEAAAAkAAYAAAAAAAEAAAAkAAUAAAAAAAEAAAAkAAQAAAAAAAEAAAAkAAMAAAACAAEAAAAkAAIAAAAEAAAAAAAkAAEAAAABAAEAAAAkAAAAAAABAAEAAAAjABYAAAABAAEAAAAjABUAAAABAAEAAAAjABQAAAABAAEAAAAjABMAAAABAAEAAAAjABIAAAABAAEAAAAjABEAAAABAAEAAAAjABAAAAABAAEAAAAjAA8AAAABAAEAAAAjAA4AAAABAAEAAAAjAA0AAAABAAEAAAAjAAwAAAABAAEAAAAjAAsAAAABAAEAAAAjAAoAAAABAAEAAAAjAAkAAAABAAEAAAAjAAgAAAABAAEAAAAjAAcAAAABAAEAAAAjAAYAAAABAAEAAAAjAAUAAAABAAEAAAAjAAQAAAABAAEAAAAjAAMAAAABAAEAAAAjAAIAAAABAAEAAAAjAAEAAAABAAEAAAAjAAAAAAABAAEAAAAiABYAAAABAAEAAAAiABUAAAABAAEAAAAiABQAAAABAAEAAAAiABMAAAABAAEAAAAiABIAAAABAAEAAAAiABEAAAABAAEAAAAiABAAAAABAAEAAAAiAA8AAAABAAEAAAAiAA4AAAABAAEAAAAiAA0AAAABAAEAAAAiAAwAAAABAAEAAAAiAAsAAAABAAEAAAAiAAoAAAABAAEAAAAiAAkAAAABAAEAAAAiAAgAAAABAAEAAAAiAAcAAAABAAEAAAAiAAYAAAABAAEAAAAiAAUAAAABAAEAAAAiAAQAAAABAAEAAAAiAAMAAAABAAEAAAAiAAIAAAABAAEAAAAiAAEAAAABAAEAAAAiAAAAAAABAAEAAAAhABYAAAABAAEAAAAhABUAAAABAAEAAAAhABQAAAAHAAAAAAAhABMAAAABAAEAAAAhABIAAAABAAEAAAAhABEAAAABAAEAAAAhABAAAAABAAEAAAAhAA8AAAABAAEAAAAhAA4AAAABAAEAAAAhAA0AAAABAAEAAAAhAAwAAAABAAEAAAAhAAsAAAABAAEAAAAhAAoAAAABAAEAAAAhAAkAAAABAAEAAAAhAAgAAAABAAEAAAAhAAcAAAABAAEAAAAhAAYAAAABAAEAAAAhAAUAAAABAAEAAAAhAAQAAAABAAEAAAAhAAMAAAABAAEAAAAhAAIAAAAHAAAAAAAhAAEAAAABAAEAAAAhAAAAAAABAAEAAAAgABYAAAABAAEAAAAgABUAAAABAAEAAAAgABQAAAAGAAAAAAAgABMAAAABAAEAAAAgABIAAAABAAEAAAAgABEAAAABAAEAAAAgABAAAAABAAEAAAAgAA8AAAABAAEAAAAgAA4AAAABAAEAAAAgAA0AAAABAAEAAAAgAAwAAAABAAEAAAAgAAsAAAABAAEAAAAgAAoAAAABAAEAAAAgAAkAAAABAAEAAAAgAAgAAAABAAEAAAAgAAcAAAABAAEAAAAgAAYAAAABAAEAAAAgAAUAAAABAAEAAAAgAAQAAAABAAEAAAAgAAMAAAABAAEAAAAgAAIAAAAGAAAAAAAgAAEAAAABAAEAAAAgAAAAAAABAAEAAAAfABYAAAABAAEAAAAfABUAAAABAAEAAAAfABQAAAABAAAAAAAfABMAAAABAAEAAAAfABIAAAABAAEAAAAfABEAAAABAAEAAAAfABAAAAABAAEAAAAfAA8AAAABAAEAAAAfAA4AAAABAAEAAAAfAA0AAAADAAEAAAAfAAwAAAABAAEAAAAfAAsAAAABAAEAAAAfAAoAAAABAAEAAAAfAAkAAAABAAEAAAAfAAgAAAABAAEAAAAfAAcAAAABAAEAAAAfAAYAAAABAAEAAAAfAAUAAAABAAEAAAAfAAQAAAABAAEAAAAfAAMAAAABAAEAAAAfAAIAAAABAAIAAAAfAAEAAAABAAEAAAAfAAAAAAABAAEAAAAeABYAAAABAAEAAAAeABUAAAABAAEAAAAeABQAAAAFAAAAAAAeABMAAAABAAEAAAAeABIAAAABAAEAAAAeABEAAAABAAEAAAAeABAAAAABAAEAAAAeAA8AAAABAAEAAAAeAA4AAAAHAAAAAAAeAA0AAAABAAEAAAAeAAwAAAABAAEAAAAeAAsAAAABAAEAAAAeAAoAAAABAAEAAAAeAAkAAAABAAEAAAAeAAgAAAAHAAAAAAAeAAcAAAABAAEAAAAeAAYAAAABAAEAAAAeAAUAAAABAAEAAAAeAAQAAAABAAEAAAAeAAMAAAABAAEAAAAeAAIAAAAFAAAAAAAeAAEAAAABAAEAAAAeAAAAAAABAAEAAAAdABYAAAABAAEAAAAdABUAAAABAAEAAAAdABQAAAABAAEAAAAdABMAAAABAAEAAAAdABIAAAABAAEAAAAdABEAAAABAAEAAAAdABAAAAABAAEAAAAdAA8AAAABAAEAAAAdAA4AAAABAAIAAAAdAA0AAAABAAEAAAAdAAwAAAABAAEAAAAdAAsAAAABAAEAAAAdAAoAAAABAAEAAAAdAAkAAAABAAEAAAAdAAgAAAAAAAIAAAAdAAcAAAACAAAAAAAdAAYAAAABAAEAAAAdAAUAAAABAAEAAAAdAAQAAAABAAEAAAAdAAMAAAABAAEAAAAdAAIAAAABAAEAAAAdAAEAAAABAAEAAAAdAAAAAAABAAEAAAAcABYAAAABAAEAAAAcABUAAAABAAEAAAAcABQAAAABAAEAAAAcABMAAAABAAEAAAAcABIAAAABAAEAAAAcABEAAAABAAEAAAAcABAAAAABAAEAAAAcAA8AAAACAAIAAAAcAA4AAAAAAAAAAAAcAA0AAAABAAEAAAAcAAwAAAABAAEAAAAcAAsAAAABAAEAAAAcAAoAAAABAAEAAAAcAAkAAAABAAEAAAAcAAgAAAABAAEAAAAcAAcAAAABAAAAAAAcAAYAAAABAAEAAAAcAAUAAAABAAEAAAAcAAQAAAABAAEAAAAcAAMAAAABAAEAAAAcAAIAAAABAAEAAAAcAAEAAAABAAEAAAAcAAAAAAABAAEAAAAbABYAAAABAAEAAAAbABUAAAABAAEAAAAbABQAAAABAAEAAAAbABMAAAABAAEAAAAbABIAAAABAAEAAAAbABEAAAABAAEAAAAbABAAAAABAAEAAAAbAA8AAAAGAAAAAAAbAA4AAAABAAEAAAAbAA0AAAABAAEAAAAbAAwAAAABAAEAAAAbAAsAAAABAAEAAAAbAAoAAAABAAEAAAAbAAkAAAABAAEAAAAbAAgAAAABAAEAAAAbAAcAAAAAAAIAAAAbAAYAAAACAAAAAAAbAAUAAAABAAEAAAAbAAQAAAABAAEAAAAbAAMAAAABAAEAAAAbAAIAAAABAAEAAAAbAAEAAAABAAEAAAAbAAAAAAABAAEAAAAaABYAAAABAAEAAAAaABUAAAABAAEAAAAaABQAAAABAAEAAAAaABMAAAABAAEAAAAaABIAAAABAAEAAAAaABEAAAABAAEAAAAaABAAAAACAAIAAAAaAA8AAAAFAAEAAAAaAA4AAAAEAAAAAAAaAA0AAAABAAEAAAAaAAwAAAABAAEAAAAaAAsAAAABAAEAAAAaAAoAAAABAAEAAAAaAAkAAAABAAEAAAAaAAgAAAABAAEAAAAaAAcAAAABAAEAAAAaAAYAAAABAAIAAAAaAAUAAAABAAEAAAAaAAQAAAABAAEAAAAaAAMAAAABAAEAAAAaAAIAAAABAAEAAAAaAAEAAAABAAEAAAAaAAAAAAABAAEAAAAZABYAAAABAAEAAAAZABUAAAABAAEAAAAZABQAAAABAAEAAAAZABMAAAABAAEAAAAZABIAAAABAAEAAAAZABEAAAABAAEAAAAZABAAAAABAAIAAAAZAA8AAAABAAEAAAAZAA4AAAABAAEAAAAZAA0AAAABAAEAAAAZAAwAAAABAAEAAAAZAAsAAAABAAEAAAAZAAoAAAABAAEAAAAZAAkAAAABAAEAAAAZAAgAAAABAAEAAAAZAAcAAAABAAEAAAAZAAYAAAAAAAIAAAAZAAUAAAACAAAAAAAZAAQAAAABAAEAAAAZAAMAAAABAAEAAAAZAAIAAAABAAEAAAAZAAEAAAABAAEAAAAZAAAAAAABAAEAAAAYABYAAAABAAEAAAAYABUAAAABAAEAAAAYABQAAAABAAEAAAAYABMAAAABAAEAAAAYABIAAAABAAEAAAAYABEAAAACAAIAAAAYABAAAAAAAAAAAAAYAA8AAAABAAEAAAAYAA4AAAADAAEAAAAYAA0AAAABAAEAAAAYAAwAAAABAAEAAAAYAAsAAAABAAEAAAAYAAoAAAABAAEAAAAYAAkAAAADAAEAAAAYAAgAAAABAAEAAAAYAAcAAAABAAEAAAAYAAYAAAABAAEAAAAYAAUAAAAGAAAAAAAYAAQAAAABAAEAAAAYAAMAAAABAAEAAAAYAAIAAAABAAEAAAAYAAEAAAABAAEAAAAYAAAAAAABAAEAAAAXABYAAAABAAEAAAAXABUAAAABAAEAAAAXABQAAAABAAEAAAAXABMAAAABAAEAAAAXABIAAAABAAEAAAAXABEAAAABAAAAAAAXABAAAAABAAEAAAAXAA8AAAABAAEAAAAXAA4AAAABAAEAAAAXAA0AAAABAAEAAAAXAAwAAAABAAEAAAAXAAsAAAABAAEAAAAXAAoAAAABAAEAAAAXAAkAAAABAAEAAAAXAAgAAAABAAEAAAAXAAcAAAABAAEAAAAXAAYAAAABAAEAAAAXAAUAAAAAAAIAAAAXAAQAAAACAAAAAAAXAAMAAAABAAEAAAAXAAIAAAABAAEAAAAXAAEAAAABAAEAAAAXAAAAAAABAAEAAAAWABYAAAABAAEAAAAWABUAAAABAAEAAAAWABQAAAABAAEAAAAWABMAAAABAAEAAAAWABIAAAACAAIAAAAWABEAAAAAAAAAAAAWABAAAAABAAEAAAAWAA8AAAABAAEAAAAWAA4AAAABAAEAAAAWAA0AAAABAAEAAAAWAAwAAAABAAEAAAAWAAsAAAAHAAAAAAAWAAoAAAABAAEAAAAWAAkAAAABAAEAAAAWAAgAAAABAAEAAAAWAAcAAAABAAEAAAAWAAYAAAABAAEAAAAWAAUAAAABAAEAAAAWAAQAAAAFAAAAAAAWAAMAAAABAAEAAAAWAAIAAAABAAEAAAAWAAEAAAABAAEAAAAWAAAAAAABAAEAAAAVABYAAAABAAEAAAAVABUAAAABAAEAAAAVABQAAAABAAEAAAAVABMAAAABAAEAAAAVABIAAAAGAAAAAAAVABEAAAABAAEAAAAVABAAAAABAAEAAAAVAA8AAAABAAEAAAAVAA4AAAABAAEAAAAVAA0AAAABAAEAAAAVAAwAAAABAAEAAAAVAAsAAAABAAAAAAAVAAoAAAABAAEAAAAVAAkAAAABAAEAAAAVAAgAAAABAAEAAAAVAAcAAAABAAEAAAAVAAYAAAABAAEAAAAVAAUAAAABAAEAAAAVAAQAAAABAAEAAAAVAAMAAAABAAEAAAAVAAIAAAABAAEAAAAVAAEAAAABAAEAAAAVAAAAAAABAAEAAAAUABYAAAABAAEAAAAUABUAAAABAAEAAAAUABQAAAABAAEAAAAUABMAAAACAAIAAAAUABIAAAAGAAEAAAAUABEAAAABAAEAAAAUABAAAAABAAEAAAAUAA8AAAADAAEAAAAUAA4AAAABAAEAAAAUAA0AAAABAAEAAAAUAAwAAAABAAEAAAAUAAsAAAABAAIAAAAUAAoAAAABAAEAAAAUAAkAAAABAAEAAAAUAAgAAAABAAEAAAAUAAcAAAAEAAIAAAAUAAYAAAAEAAEAAAAUAAUAAAACAAEAAAAUAAQAAAAEAAEAAAAUAAMAAAAEAAAAAAAUAAIAAAABAAEAAAAUAAEAAAABAAEAAAAUAAAAAAABAAEAAAATABYAAAABAAEAAAATABUAAAABAAEAAAATABQAAAABAAEAAAATABMAAAAAAAIAAAATABIAAAAGAAEAAAATABEAAAABAAEAAAATABAAAAABAAEAAAATAA8AAAABAAEAAAATAA4AAAABAAEAAAATAA0AAAABAAEAAAATAAwAAAACAAIAAAATAAsAAAAAAAAAAAATAAoAAAABAAEAAAATAAkAAAABAAEAAAATAAgAAAABAAEAAAATAAcAAAABAAEAAAATAAYAAAABAAEAAAATAAUAAAABAAEAAAATAAQAAAABAAEAAAATAAMAAAABAAEAAAATAAIAAAABAAEAAAATAAEAAAABAAEAAAATAAAAAAABAAEAAAASABYAAAABAAEAAAASABUAAAADAAEAAAASABQAAAABAAEAAAASABMAAAABAAEAAAASABIAAAABAAAAAAASABEAAAABAAEAAAASABAAAAABAAEAAAASAA8AAAABAAEAAAASAA4AAAABAAEAAAASAA0AAAABAAEAAAASAAwAAAABAAIAAAASAAsAAAABAAEAAAASAAoAAAABAAEAAAASAAkAAAADAAEAAAASAAgAAAABAAEAAAASAAcAAAABAAEAAAASAAYAAAABAAEAAAASAAUAAAABAAEAAAASAAQAAAABAAEAAAASAAMAAAABAAEAAAASAAIAAAADAAEAAAASAAEAAAABAAEAAAASAAAAAAABAAEAAAARABYAAAABAAEAAAARABUAAAABAAEAAAARABQAAAABAAEAAAARABMAAAABAAEAAAARABIAAAAAAAIAAAARABEAAAAAAAEAAAARABAAAAACAAEAAAARAA8AAAAAAAEAAAARAA4AAAACAAEAAAARAA0AAAAEAAEAAAARAAwAAAAGAAEAAAARAAsAAAABAAEAAAARAAoAAAABAAEAAAARAAkAAAABAAEAAAARAAgAAAABAAEAAAARAAcAAAAHAAAAAAARAAYAAAABAAEAAAARAAUAAAABAAEAAAARAAQAAAABAAEAAAARAAMAAAABAAEAAAARAAIAAAABAAEAAAARAAEAAAABAAEAAAARAAAAAAABAAEAAAAQABYAAAABAAEAAAAQABUAAAABAAEAAAAQABQAAAABAAEAAAAQABMAAAABAAEAAAAQABIAAAABAAEAAAAQABEAAAABAAEAAAAQABAAAAABAAEAAAAQAA8AAAABAAEAAAAQAA4AAAABAAEAAAAQAA0AAAABAAEAAAAQAAwAAAAGAAAAAAAQAAsAAAABAAEAAAAQAAoAAAABAAEAAAAQAAkAAAABAAEAAAAQAAgAAAABAAEAAAAQAAcAAAABAAIAAAAQAAYAAAABAAEAAAAQAAUAAAABAAEAAAAQAAQAAAABAAEAAAAQAAMAAAABAAEAAAAQAAIAAAABAAEAAAAQAAEAAAABAAEAAAAQAAAAAAABAAEAAAAPABYAAAABAAEAAAAPABUAAAABAAEAAAAPABQAAAABAAEAAAAPABMAAAABAAEAAAAPABIAAAABAAEAAAAPABEAAAABAAEAAAAPABAAAAABAAEAAAAPAA8AAAABAAEAAAAPAA4AAAABAAEAAAAPAA0AAAACAAIAAAAPAAwAAAAAAAAAAAAPAAsAAAABAAEAAAAPAAoAAAABAAEAAAAPAAkAAAABAAEAAAAPAAgAAAABAAEAAAAPAAcAAAAAAAIAAAAPAAYAAAACAAAAAAAPAAUAAAABAAEAAAAPAAQAAAABAAEAAAAPAAMAAAABAAEAAAAPAAIAAAABAAEAAAAPAAEAAAABAAEAAAAPAAAAAAABAAEAAAAOABYAAAABAAEAAAAOABUAAAABAAEAAAAOABQAAAABAAEAAAAOABMAAAAHAAAAAAAOABIAAAABAAEAAAAOABEAAAABAAEAAAAOABAAAAABAAEAAAAOAA8AAAABAAEAAAAOAA4AAAABAAEAAAAOAA0AAAABAAAAAAAOAAwAAAABAAEAAAAOAAsAAAABAAEAAAAOAAoAAAABAAEAAAAOAAkAAAADAAEAAAAOAAgAAAABAAEAAAAOAAcAAAABAAEAAAAOAAYAAAAGAAAAAAAOAAUAAAABAAEAAAAOAAQAAAABAAEAAAAOAAMAAAABAAEAAAAOAAIAAAABAAEAAAAOAAEAAAABAAEAAAAOAAAAAAABAAEAAAANABYAAAABAAEAAAANABUAAAABAAEAAAANABQAAAABAAEAAAANABMAAAABAAIAAAANABIAAAABAAEAAAANABEAAAABAAEAAAANABAAAAABAAEAAAANAA8AAAABAAEAAAANAA4AAAABAAEAAAANAA0AAAABAAIAAAANAAwAAAABAAEAAAANAAsAAAABAAEAAAANAAoAAAABAAEAAAANAAkAAAABAAEAAAANAAgAAAABAAEAAAANAAcAAAABAAEAAAANAAYAAAABAAIAAAANAAUAAAABAAEAAAANAAQAAAABAAEAAAANAAMAAAABAAEAAAANAAIAAAABAAEAAAANAAEAAAABAAEAAAANAAAAAAABAAEAAAAMABYAAAABAAEAAAAMABUAAAABAAEAAAAMABQAAAABAAEAAAAMABMAAAABAAIAAAAMABIAAAABAAEAAAAMABEAAAABAAEAAAAMABAAAAABAAEAAAAMAA8AAAABAAEAAAAMAA4AAAABAAEAAAAMAA0AAAABAAAAAAAMAAwAAAABAAEAAAAMAAsAAAABAAEAAAAMAAoAAAABAAEAAAAMAAkAAAABAAEAAAAMAAgAAAABAAEAAAAMAAcAAAABAAEAAAAMAAYAAAAAAAIAAAAMAAUAAAACAAAAAAAMAAQAAAABAAEAAAAMAAMAAAABAAEAAAAMAAIAAAABAAEAAAAMAAEAAAABAAEAAAAMAAAAAAABAAEAAAALABYAAAABAAEAAAALABUAAAABAAEAAAALABQAAAABAAEAAAALABMAAAABAAAAAAALABIAAAABAAEAAAALABEAAAABAAEAAAALABAAAAABAAEAAAALAA8AAAABAAEAAAALAA4AAAACAAIAAAALAA0AAAAAAAAAAAALAAwAAAABAAEAAAALAAsAAAABAAEAAAALAAoAAAABAAEAAAALAAkAAAABAAEAAAALAAgAAAABAAEAAAALAAcAAAABAAEAAAALAAYAAAABAAEAAAALAAUAAAABAAAAAAALAAQAAAABAAEAAAALAAMAAAABAAEAAAALAAIAAAABAAEAAAALAAEAAAABAAEAAAALAAAAAAABAAEAAAAKABYAAAABAAEAAAAKABUAAAABAAEAAAAKABQAAAABAAEAAAAKABMAAAAFAAAAAAAKABIAAAABAAEAAAAKABEAAAABAAEAAAAKABAAAAABAAEAAAAKAA8AAAABAAEAAAAKAA4AAAABAAAAAAAKAA0AAAABAAEAAAAKAAwAAAABAAEAAAAKAAsAAAABAAEAAAAKAAoAAAABAAEAAAAKAAkAAAABAAEAAAAKAAgAAAABAAEAAAAKAAcAAAABAAEAAAAKAAYAAAABAAEAAAAKAAUAAAAGAAAAAAAKAAQAAAABAAEAAAAKAAMAAAABAAEAAAAKAAIAAAABAAEAAAAKAAEAAAABAAEAAAAKAAAAAAABAAEAAAAJABYAAAABAAEAAAAJABUAAAABAAEAAAAJABQAAAABAAEAAAAJABMAAAABAAEAAAAJABIAAAABAAEAAAAJABEAAAABAAEAAAAJABAAAAABAAEAAAAJAA8AAAABAAEAAAAJAA4AAAABAAAAAAAJAA0AAAABAAEAAAAJAAwAAAABAAEAAAAJAAsAAAAEAAIAAAAJAAoAAAACAAEAAAAJAAkAAAACAAEAAAAJAAgAAAAEAAAAAAAJAAcAAAABAAEAAAAJAAYAAAABAAEAAAAJAAUAAAAAAAIAAAAJAAQAAAACAAAAAAAJAAMAAAABAAEAAAAJAAIAAAABAAEAAAAJAAEAAAABAAEAAAAJAAAAAAABAAEAAAAIABYAAAABAAEAAAAIABUAAAABAAEAAAAIABQAAAABAAEAAAAIABMAAAAHAAAAAAAIABIAAAABAAEAAAAIABEAAAABAAEAAAAIABAAAAABAAEAAAAIAA8AAAABAAEAAAAIAA4AAAABAAIAAAAIAA0AAAABAAEAAAAIAAwAAAABAAEAAAAIAAsAAAABAAEAAAAIAAoAAAABAAEAAAAIAAkAAAABAAEAAAAIAAgAAAABAAEAAAAIAAcAAAABAAEAAAAIAAYAAAABAAEAAAAIAAUAAAABAAEAAAAIAAQAAAABAAAAAAAIAAMAAAABAAEAAAAIAAIAAAABAAEAAAAIAAEAAAABAAEAAAAIAAAAAAABAAEAAAAHABYAAAABAAEAAAAHABUAAAABAAEAAAAHABQAAAABAAEAAAAHABMAAAAFAAAAAAAHABIAAAABAAEAAAAHABEAAAABAAEAAAAHABAAAAABAAEAAAAHAA8AAAACAAIAAAAHAA4AAAAAAAAAAAAHAA0AAAABAAEAAAAHAAwAAAABAAEAAAAHAAsAAAABAAEAAAAHAAoAAAABAAEAAAAHAAkAAAABAAEAAAAHAAgAAAABAAEAAAAHAAcAAAABAAEAAAAHAAYAAAABAAEAAAAHAAUAAAABAAEAAAAHAAQAAAAFAAIAAAAHAAMAAAACAAAAAAAHAAIAAAABAAEAAAAHAAEAAAABAAEAAAAHAAAAAAABAAEAAAAGABYAAAABAAEAAAAGABUAAAABAAEAAAAGABQAAAABAAEAAAAGABMAAAABAAEAAAAGABIAAAABAAEAAAAGABEAAAABAAEAAAAGABAAAAABAAEAAAAGAA8AAAABAAIAAAAGAA4AAAABAAEAAAAGAA0AAAABAAEAAAAGAAwAAAABAAEAAAAGAAsAAAABAAEAAAAGAAoAAAABAAEAAAAGAAkAAAABAAEAAAAGAAgAAAABAAEAAAAGAAcAAAABAAEAAAAGAAYAAAABAAEAAAAGAAUAAAABAAEAAAAGAAQAAAAAAAIAAAAGAAMAAAAGAAEAAAAGAAIAAAABAAEAAAAGAAEAAAABAAEAAAAGAAAAAAABAAEAAAAFABYAAAABAAEAAAAFABUAAAABAAEAAAAFABQAAAABAAEAAAAFABMAAAABAAEAAAAFABIAAAABAAEAAAAFABEAAAABAAEAAAAFABAAAAABAAEAAAAFAA8AAAAFAAAAAAAFAA4AAAABAAEAAAAFAA0AAAABAAEAAAAFAAwAAAABAAEAAAAFAAsAAAABAAEAAAAFAAoAAAABAAEAAAAFAAkAAAABAAEAAAAFAAgAAAABAAEAAAAFAAcAAAABAAEAAAAFAAYAAAABAAEAAAAFAAUAAAABAAEAAAAFAAQAAAABAAEAAAAFAAMAAAABAAAAAAAFAAIAAAABAAEAAAAFAAEAAAABAAEAAAAFAAAAAAABAAEAAAAEABYAAAABAAEAAAAEABUAAAABAAEAAAAEABQAAAABAAEAAAAEABMAAAABAAEAAAAEABIAAAABAAEAAAAEABEAAAABAAEAAAAEABAAAAABAAEAAAAEAA8AAAABAAEAAAAEAA4AAAABAAEAAAAEAA0AAAABAAEAAAAEAAwAAAABAAEAAAAEAAsAAAABAAEAAAAEAAoAAAABAAEAAAAEAAkAAAABAAEAAAAEAAgAAAABAAEAAAAEAAcAAAABAAEAAAAEAAYAAAABAAEAAAAEAAUAAAABAAEAAAAEAAQAAAABAAEAAAAEAAMAAAAFAAAAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAAAAAABAAEAAAADABYAAAABAAEAAAADABUAAAABAAEAAAADABQAAAABAAEAAAADABMAAAABAAEAAAADABIAAAABAAEAAAADABEAAAABAAEAAAADABAAAAABAAEAAAADAA8AAAAEAAIAAAADAA4AAAAAAAEAAAADAA0AAAAAAAEAAAADAAwAAAACAAEAAAADAAsAAAAEAAEAAAADAAoAAAAAAAEAAAADAAkAAAAAAAEAAAADAAgAAAAAAAEAAAADAAcAAAACAAEAAAADAAYAAAAEAAAAAAADAAUAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAADAAAAAAABAAEAAAACABYAAAABAAEAAAACABUAAAABAAEAAAACABQAAAABAAEAAAACABMAAAABAAEAAAACABIAAAADAAEAAAACABEAAAABAAEAAAACABAAAAABAAEAAAACAA8AAAABAAEAAAACAA4AAAABAAEAAAACAA0AAAABAAEAAAACAAwAAAABAAEAAAACAAsAAAABAAEAAAACAAoAAAABAAEAAAACAAkAAAABAAEAAAACAAgAAAABAAEAAAACAAcAAAABAAEAAAACAAYAAAABAAEAAAACAAUAAAABAAEAAAACAAQAAAABAAEAAAACAAMAAAABAAEAAAACAAIAAAABAAEAAAACAAEAAAABAAEAAAACAAAAAAABAAEAAAABABYAAAABAAEAAAABABUAAAABAAEAAAABABQAAAABAAEAAAABABMAAAABAAEAAAABABIAAAABAAEAAAABABEAAAABAAEAAAABABAAAAABAAEAAAABAA8AAAABAAEAAAABAA4AAAABAAEAAAABAA0AAAABAAEAAAABAAwAAAABAAEAAAABAAsAAAABAAEAAAABAAoAAAABAAEAAAABAAkAAAABAAEAAAABAAgAAAABAAEAAAABAAcAAAABAAEAAAABAAYAAAABAAEAAAABAAUAAAABAAEAAAABAAQAAAABAAEAAAABAAMAAAABAAEAAAABAAIAAAABAAEAAAABAAEAAAABAAEAAAABAAAAAAABAAEAAAAAABYAAAABAAEAAAAAABUAAAABAAEAAAAAABQAAAABAAEAAAAAABMAAAABAAEAAAAAABIAAAABAAEAAAAAABEAAAABAAEAAAAAABAAAAABAAEAAAAAAA8AAAABAAEAAAAAAA4AAAABAAEAAAAAAA0AAAABAAEAAAAAAAwAAAABAAEAAAAAAAsAAAABAAEAAAAAAAoAAAABAAEAAAAAAAkAAAABAAEAAAAAAAgAAAABAAEAAAAAAAcAAAABAAEAAAAAAAYAAAABAAEAAAAAAAUAAAABAAEAAAAAAAQAAAABAAEAAAAAAAMAAAABAAEAAAAAAAIAAAABAAEAAAAAAAEAAAABAAEAAAAAAAAAAAABAAEAAAA=")
+tile_set = ExtResource("8_5mrjc")
+collision_enabled = false
+
+[node name="end" type="CanvasLayer" parent="GUI"]
+layer = 128
+
+[node name="end" type="PanelContainer" parent="GUI/end"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GUI/end/end"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 45
+text = "the end!
+thanks for playing"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/Play" to="GUI/gui" method="_on_play_pressed"]
+[connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/how to play" to="GUI/gui" method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/main_menu_button" to="GUI/gui" method="_on_main_menu_pressed"]
+[connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/SFXSpinBox" to="GUI/gui" method="_on_spinsfx_value_changed"]
+[connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/music_spin_box" to="GUI/gui" method="_on_spinmusic_value_changed"]

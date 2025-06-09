@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=4 uid="uid://b4iaagxkyp3is"]
+
+[ext_resource type="Script" uid="uid://b2hmrtqn1ime6" path="res://src/characters/player.gd" id="1_855cb"]
+[ext_resource type="Shader" uid="uid://cqtpq68obqgkq" path="res://src/shaders/damage_flash.gdshader" id="2_mmqyw"]
+[ext_resource type="Texture2D" uid="uid://60w3gdt0s5kd" path="res://assets/tiles/bossSET.png" id="3_42xwb"]
+[ext_resource type="Texture2D" uid="uid://s3ajphaio3tq" path="res://assets/sprites/crossbow.png" id="4_qfy3w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_855cb"]
+size = Vector2(72, 48)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjtsg"]
+shader = ExtResource("2_mmqyw")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/factor = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4c870"]
+texture = ExtResource("3_42xwb")
+0:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_78r85"]
+sources/0 = SubResource("TileSetAtlasSource_4c870")
+
+[node name="player" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 3
+motion_mode = 1
+script = ExtResource("1_855cb")
+max_hp = 10
+hp = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_855cb")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+material = SubResource("ShaderMaterial_wjtsg")
+tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAABAAAAAAAAAAAAAAABAP//AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAACAAAAAAABAAAAAAACAP//AAABAAAAAAD9/wAAAAABAAAAADD9////AAABAAAAADD9//7/AAABAAEAADD+//7/AAABAAAAAGABAP7/AAABAAAAAGACAP7/AAABAAEAAGA=")
+tile_set = SubResource("TileSet_78r85")
+
+[node name="weapons" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="weapons"]
+position = Vector2(-9, -24)
+texture = ExtResource("4_qfy3w")
+hframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="weapons"]
+position = Vector2(8, -24)
+texture = ExtResource("4_qfy3w")
+hframes = 2
+
+[node name="Sprite2D3" type="Sprite2D" parent="weapons"]
+position = Vector2(24, 24)
+rotation = 3.14159
+texture = ExtResource("4_qfy3w")
+hframes = 2
+
+[node name="Sprite2D4" type="Sprite2D" parent="weapons"]
+position = Vector2(-24, 24)
+rotation = 3.14159
+texture = ExtResource("4_qfy3w")
+hframes = 2
+
+[node name="Sprite2D5" type="Sprite2D" parent="weapons"]
+position = Vector2(8, 40)
+rotation = 1.5708
+texture = ExtResource("4_qfy3w")
+hframes = 2
+
+[node name="Sprite2D6" type="Sprite2D" parent="weapons"]
+position = Vector2(-8, 40)
+rotation = -1.5708
+texture = ExtResource("4_qfy3w")
+hframes = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
