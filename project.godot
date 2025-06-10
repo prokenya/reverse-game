@@ -32,6 +32,18 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/virtual_joystick/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://assets/": "pink",
+"res://src/": "red",
+"res://src/characters/": "orange",
+"res://src/gui/": "green",
+"res://src/test/": "gray",
+"res://src/worlds/": "blue"
+}
+
 [input]
 
 move_left={
@@ -64,6 +76,11 @@ Menu={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":77,"key_label":0,"unicode":109,"location":0,"echo":false,"script":null)
 ]
 }
+shot={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(265, 13),"global_position":Vector2(274, 61),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [input_devices]
 
@@ -73,6 +90,8 @@ pointing/emulate_touch_from_mouse=true
 
 2d_render/layer_1="ground"
 2d_render/layer_3="walls"
+2d_physics/layer_1="walls"
+2d_physics/layer_2="characters"
 2d_physics/layer_3="projectiles"
 
 [rendering]

@@ -2,7 +2,6 @@ extends BaseNavigationBody
 class_name NPC
 
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hit_anim: AnimatedSprite2D = $Node2D/hit_anim
 
 
@@ -14,10 +13,11 @@ var random_movement:bool = true
 
 @export var streams:Array[AudioStream]
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var hit_delay: Timer = $hit_delay
 
-
-
+@onready var progress_bar: ProgressBar = %ProgressBar
 
 enum states {
 	IDLE,
@@ -27,82 +27,101 @@ enum states {
 	TEST
 }
 @export var state:states = states.GOTO
-
+			#if !navigation_agent.is_target_reachable():
+				#go_to(-player.global_position)
 func _ready() -> void:
+	G.main.npc = self
+	connect("added_hp",_added_hp)
+	
+	progress_bar.max_value = max_hp
+	
 	play_sound(0)
 	G.main.gui.set_NPC_status(true)
+	go_to(position) # for is_navigation_finished()
+	
 
 func change_state(next_state:states):
 	reset_navigation()
 	state = next_state
 	match state:
 		states.HITS:
-			random_movement = false
-			if (player.global_position - navigation_agent.get_final_position()).length() > 10:
-				await go_to(Vector2(global_position - player.global_position) * 5)
-			random_movement = true
+			#random_movement = false
+			var pos = Vector2(global_position - player.global_position).normalized() * 100
+			await  go_to(pos)
+			if !navigation_agent.is_target_reachable():
+				await go_to(-player.global_position)
+			change_state(states.FOLLOW_PLAYER)
+			
+			#random_movement = true
 				
 
 func  _physics_process(delta: float) -> void:
+	if is_dead:return
 	super._physics_process(delta)
 	match state:
 		states.IDLE:
 			reset_navigation()
 		states.FOLLOW_PLAYER:
 			if (player.global_position - navigation_agent.get_final_position()).length() > 10:
+				if navigation_agent.is_navigation_finished():
+					change_state(states.HITS)
 				go_to(player.global_position)
 		states.GOTO:
 			if navigation_agent.is_navigation_finished():
 				var random_offset = Vector2(randf() * 2 - 1, randf() * 2 - 1) * 150
-				go_to(position + random_offset)
+				await go_to(position + random_offset)
+				if player.is_inside_tree():
+					change_state(states.FOLLOW_PLAYER)
+					if $enth_taker.is_stopped():
+						$enth_taker.start()
 	if navigation_agent.is_navigation_finished():
 		sprite.play("default")
 	else:
 		sprite.play("walk")
 			
 
-	#look_at(navigation_agent.get_next_path_position())
-	
-func _on_random_timer_timeout() -> void:
-	random_timer.start([1, 2, 3, 4, 5].pick_random() * 2)
-	if !random_movement:return
-
-	var enum_values = states.values()
-	enum_values.pop_front()
-	enum_values.pop_back()
-	enum_values.pop_back()
-	var random_state = enum_values.pick_random()
-	change_state(random_state)
-	#print(random_state)
 
 
 func _on_collide_with_player_body_entered(body: Node2D) -> void:
-	change_state(states.HITS)
+	if body is not Player or body is NPC: return
+	if is_dead:return
+	
 	current_body = body
 	play_hit_anim()
 
 
-var current_body:Node2D
+var current_body:BaseCharacter
 func play_hit_anim():
+	if current_body.is_dead or self.is_dead:return
+	
 	if !hit_delay.is_stopped():return
+	hit_delay.start()
+	change_state(states.HITS)
+	
 	hit_anim.get_parent().look_at(current_body.global_position)
 	hit_anim.visible = true
 	hit_anim.play()
+	
+	current_body.add_hp(-1)
 	play_sound(3)
-	if current_body is Player:
-		current_body.add_hp(-1)
+	
 	await hit_anim.animation_finished
+	
 	hit_anim.visible = false
-	hit_delay.start()
-
 
 func _on_collide_with_player_body_exited(body: Node2D) -> void:
 	current_body = null
-	
+
 func _on_hit_delay_timeout() -> void:
+	if is_dead:return
+	
+	change_state(states.FOLLOW_PLAYER)
+	
 	if current_body:
 		play_hit_anim()
 		hit_delay.start()
+		
+	#add_enth(clampi(-2 * hit_streak,2,30))
 
 func play_sound(id:int,rando_pitch:bool = false):
 	if id == 3:
@@ -110,41 +129,25 @@ func play_sound(id:int,rando_pitch:bool = false):
 	else: audio_stream_player.pitch_scale = 1
 	audio_stream_player.stream = streams[id]
 	audio_stream_player.play()
+	await audio_stream_player.finished
 
 func get_random_pitch_scale(min_pitch: float = 0.9, max_pitch: float = 1.1) -> float:
 	return randf_range(min_pitch, max_pitch)
 
-var tween: Tween
-func animate_flash(duration: float = 0.3, cycles: int = 1) -> void:
-	if tween:
-		tween.kill()
-	tween = create_tween()
-	var shader_material := sprite.material as ShaderMaterial
-	if shader_material == null:
-		push_warning("sprite.material is not a ShaderMaterial")
-		return
-	
-	for i in range(cycles):
-		tween.tween_property(shader_material, "shader_parameter/factor", 1.0, duration / 2)
-		tween.tween_property(shader_material, "shader_parameter/factor", 0.0, duration / 2)
-	
-	await tween.finished
 
-
-var in_death:bool = false
 func death():
-	if in_death:return
+	collision_shape.disabled = true
+	G.main.gui.set_enthusiasm(0)
 	
-	in_death = true
-	current_body = null
-	random_movement = false
 	change_state(states.IDLE)
-	
 	play_sound(2)
-	await animate_flash(0.2,5)
+	await animate_flash(0.2,5,Color.RED)
+	
 	leave()
 
 func leave():
+	collision_shape.disabled = true
+	is_dead = true
 	play_sound(1)
 	sprite.visible = false
 	await G.main.gui.set_NPC_status(false)
@@ -152,14 +155,18 @@ func leave():
 
 
 
+func _added_hp(hp:int):
+	progress_bar.value = hp
+
 #region enthusiasm
 var current_enthusiasm: int = 100
 		
 func add_enth(enthusiasm: int) -> void:
+	if is_dead:return
 	current_enthusiasm += enthusiasm
 	current_enthusiasm = min(current_enthusiasm,100)
 	
-	G.main.gui.set_enthusiasm(current_enthusiasm)
+	await  G.main.gui.set_enthusiasm(current_enthusiasm)
 	
 	if 	current_enthusiasm <= 0:
 		G.main.gui.set_NPC_status(false)

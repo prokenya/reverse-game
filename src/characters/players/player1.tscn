@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://bmj7ad0njonhr"]
+[gd_scene load_steps=12 format=4 uid="uid://bmj7ad0njonhr"]
 
-[ext_resource type="Script" uid="uid://b2hmrtqn1ime6" path="res://src/characters/player.gd" id="1_3ikja"]
+[ext_resource type="Script" uid="uid://b2hmrtqn1ime6" path="res://src/characters/players/player.gd" id="1_3ikja"]
 [ext_resource type="Texture2D" uid="uid://60w3gdt0s5kd" path="res://assets/tiles/bossSET.png" id="2_3ikja"]
 [ext_resource type="Shader" uid="uid://cqtpq68obqgkq" path="res://src/shaders/damage_flash.gdshader" id="2_78r85"]
 [ext_resource type="Texture2D" uid="uid://s3ajphaio3tq" path="res://assets/sprites/crossbow.png" id="3_4c870"]
+[ext_resource type="PackedScene" uid="uid://oi85nklx2tb4" path="res://src/projectiles/spawn_anim.tscn" id="5_d8ms1"]
+[ext_resource type="Script" uid="uid://diqjkjwtpix0f" path="res://src/characters/hitbox.gd" id="6_e3ved"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78r85"]
 size = Vector2(42, 37)
@@ -22,13 +24,18 @@ texture = ExtResource("2_3ikja")
 [sub_resource type="TileSet" id="TileSet_78r85"]
 sources/0 = SubResource("TileSetAtlasSource_4c870")
 
-[node name="player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8ms1"]
+
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 z_index = 1
-collision_layer = 3
+collision_layer = 2
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_3ikja")
-max_hp = 7
+sprite = NodePath("TileMapLayer")
+is_boss = true
 hp = 7
+max_hp = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
@@ -51,7 +58,17 @@ position = Vector2(8, -24)
 texture = ExtResource("3_4c870")
 hframes = 2
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
+[node name="spawn_animation" parent="." instance=ExtResource("5_d8ms1")]
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_e3ved")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_d8ms1")
+
+[node name="add_hp_timer" type="Timer" parent="hitbox"]
+one_shot = true
+
+[connection signal="timeout" from="hitbox/add_hp_timer" to="hitbox" method="_on_add_hp_timer_timeout"]

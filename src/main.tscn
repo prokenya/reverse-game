@@ -429,11 +429,12 @@ text = "Controls:
     S – Move Down
     D – Move Right
 	MouseMotion/ScreenDrag - rotation
+	LMB/ScreenDrag - shot
 
     M / Esc– Show Menu 
 
 [color=red]hint:[/color]
-Arrows shot near the player increase their attention, but if you hit the player, they will die and you’ll fail the level.
+Arrows fired near the player increase their attention, but if you hit the player, they take damage and if they die and you fail the level.
 
 [color=green]About the game:[/color]
 You are the boss in the game, and your task is to keep the player's attention so they don’t quit. But don’t go too easy on them — if it gets boring, they’ll leave.
@@ -506,31 +507,35 @@ size_flags_vertical = 3
 [node name="HSeparator" type="HSeparator" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu"]
 layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 columns = 2
 
-[node name="Label" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+[node name="Label" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "sfx"
 horizontal_alignment = 2
 
-[node name="SFXSpinBox" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+[node name="SFXSpinBox" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_stretch_ratio = 0.5
 alignment = 1
 
-[node name="Label2" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+[node name="Label2" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer/GridContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "music"
 horizontal_alignment = 2
 
-[node name="music_spin_box" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+[node name="music_spin_box" type="SpinBox" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -538,16 +543,13 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 alignment = 1
 
-[node name="mobile togle label" type="Label" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "mobile"
-
-[node name="mobile togle" type="CheckButton" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer"]
+[node name="mobile togle" type="CheckButton" parent="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 focus_mode = 0
+text = "mobile input"
 
 [node name="guianimation" type="AnimationPlayer" parent="GUI/gui"]
 libraries = {
@@ -556,7 +558,6 @@ libraries = {
 speed_scale = 5.0
 
 [node name="stats" type="PanelContainer" parent="GUI/gui"]
-visible = false
 layout_mode = 1
 offset_right = 292.0
 offset_bottom = 32.0
@@ -573,6 +574,7 @@ theme_override_font_sizes/font_size = 10
 text = "boss hp:"
 
 [node name="hp" type="ProgressBar" parent="GUI/gui/stats/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
@@ -586,6 +588,7 @@ theme_override_font_sizes/font_size = 10
 text = "player attention:"
 
 [node name="enthusiasm" type="ProgressBar" parent="GUI/gui/stats/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
@@ -649,7 +652,7 @@ vertical_alignment = 1
 [connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/Play" to="GUI/gui" method="_on_play_pressed"]
 [connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/how to play" to="GUI/gui" method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/main_menu_button" to="GUI/gui" method="_on_main_menu_pressed"]
-[connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/SFXSpinBox" to="GUI/gui" method="_on_spinsfx_value_changed"]
-[connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/music_spin_box" to="GUI/gui" method="_on_spinmusic_value_changed"]
-[connection signal="toggled" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/GridContainer/mobile togle" to="GUI/gui" method="_on_mobile_togle_toggled"]
+[connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer/GridContainer/SFXSpinBox" to="GUI/gui" method="_on_spinsfx_value_changed"]
+[connection signal="value_changed" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer/GridContainer/music_spin_box" to="GUI/gui" method="_on_spinmusic_value_changed"]
+[connection signal="toggled" from="GUI/gui/HBoxContainer/ui/NinePatchRect/menu/VBoxContainer/mobile togle" to="GUI/gui" method="_on_mobile_togle_toggled"]
 [connection signal="pressed" from="GUI/gui/mobile menu" to="GUI/gui" method="open_close_menu"]

@@ -1,7 +1,5 @@
-extends CharacterBody2D
+extends BaseCharacter
 class_name BaseNavigationBody
-
-@export var SPEED:int = 300.0
 
 @export var navigation_agent: NavigationAgent2D
 

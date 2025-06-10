@@ -141,7 +141,7 @@ texture = ExtResource("1_u4uw3")
 7:1/0/terrains_peering_bit/top_side = 0
 
 [resource]
-physics_layer_0/collision_layer = 5
+physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "desert"
 terrain_set_0/terrain_0/color = Color(0.708991, 0, 0.3158, 1)

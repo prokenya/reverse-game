@@ -10,7 +10,7 @@ void vertex() {
 void fragment()
 {
 	if (COLOR.a > 0.2)
-	{	
+	{
 		COLOR = mix(COLOR,flash_color,factor);
 	}
 

@@ -12,9 +12,7 @@ class_name GUI
 
 @onready var resume_button: Button = $"HBoxContainer/ui/NinePatchRect/menu/resume button"
 @onready var mobile_menu: Button = $"mobile menu"
-@onready var mobile_togle: CheckButton = $"HBoxContainer/ui/NinePatchRect/menu/GridContainer/mobile togle"
-@onready var mobile_togle_label: Label = $"HBoxContainer/ui/NinePatchRect/menu/GridContainer/mobile togle label"
-
+@onready var mobile_togle: CheckButton = %"mobile togle"
 
 @onready var virtual_joystick_left: VirtualJoystick = $"VBoxContainer/Virtual joystick left"
 
@@ -27,8 +25,8 @@ var hp_tween:Tween
 var enthusiasm_tween:Tween
 
 
-@onready var hp_progress: ProgressBar = $stats/GridContainer/hp
-@onready var enthusiasm_progress: ProgressBar = $stats/GridContainer/enthusiasm
+@onready var hp_progress: ProgressBar = %hp
+@onready var enthusiasm_progress: ProgressBar = %enthusiasm
 @onready var stats: PanelContainer = $stats
 
 @onready var levels_c: VBoxContainer = %levels
@@ -62,6 +60,8 @@ func set_enthusiasm(enthusiasm:int):
 		enthusiasm_tween.kill()
 	enthusiasm_tween = create_tween()
 	enthusiasm_tween.tween_property(enthusiasm_progress,"value",enthusiasm,1)
+	await  enthusiasm_tween.finished
+	return
 
 func set_audio(data:Data = G.data):
 	var bus_index = AudioServer.get_bus_index("sfx")
@@ -103,20 +103,13 @@ func set_buttons_status(data:Dictionary):
 func _on_play_pressed(id:int = 0) -> void:
 	open_close_menu()
 	load_game(id)
-	main_menu_button.visible = true
-	stats.visible = true
-	
-	resume_button.visible = true
-	mobile_togle.visible = false
-	mobile_togle_label.visible = false
-	
-	play.visible = false
 
 func load_game(id:int = 0):
 	await set_transition()
 	G.main.spawn_player(Vector2(-340,0),3,id)
 	G.main.load_world(id)
 	G.main.current_world_id = id
+	hide_buttons()
 	if G.plathorm != "PC":
 		virtual_joystick_left.visible = true
 	await set_transition(false)
@@ -124,6 +117,15 @@ func load_game(id:int = 0):
 		G.data.active_buttons.append(id)
 		G.data.save()
 		set_buttons_status({"active_buttons":G.data.active_buttons})
+
+func hide_buttons():
+	main_menu_button.visible = true
+	stats.visible = true
+	
+	resume_button.visible = true
+	mobile_togle.visible = false
+	
+	play.visible = false
 
 func _on_main_menu_pressed() -> void:
 	await set_transition()
@@ -203,7 +205,7 @@ func _on_spinmusic_value_changed(value: float) -> void:
 func show_end():
 	get_tree().paused = true
 	end.show()
-	await  get_tree().create_timer(10).timeout
+	await  get_tree().create_timer(5).timeout
 	_on_main_menu_pressed()
 
 

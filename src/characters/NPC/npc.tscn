@@ -1,39 +1,40 @@
-[gd_scene load_steps=28 format=3 uid="uid://c7vd5liu3ybqa"]
+[gd_scene load_steps=29 format=3 uid="uid://c7vd5liu3ybqa"]
 
-[ext_resource type="Script" uid="uid://yuuuyc68pjm8" path="res://src/characters/NPC.gd" id="1_lo38k"]
-[ext_resource type="AudioStream" uid="uid://pqgvomid7ixe" path="res://assets/audio/sfx/connect.wav" id="2_bsgwr"]
-[ext_resource type="Script" uid="uid://4tyc5urners" path="res://src/test/agent_movement.gd" id="2_xrosd"]
-[ext_resource type="Texture2D" uid="uid://holr4osbvb5h" path="res://assets/sprites/playerNPC.png" id="3_k70i8"]
-[ext_resource type="AudioStream" uid="uid://d3vy727hyr25y" path="res://assets/audio/sfx/disconnect.wav" id="3_pqlo3"]
-[ext_resource type="Script" uid="uid://b7x1p4s5lgiub" path="res://src/characters/camera.gd" id="4_kb1y3"]
-[ext_resource type="AudioStream" uid="uid://df3g3eyk3fao8" path="res://assets/audio/sfx/death.wav" id="4_pgt8a"]
-[ext_resource type="Shader" uid="uid://cqtpq68obqgkq" path="res://src/shaders/damage_flash.gdshader" id="4_pqlo3"]
-[ext_resource type="AudioStream" uid="uid://vay4bk1del6n" path="res://assets/audio/sfx/hit2.wav" id="5_lle6m"]
-[ext_resource type="Texture2D" uid="uid://box8ojc4m3kk8" path="res://assets/sprites/hit.png" id="9_ptetw"]
+[ext_resource type="Script" uid="uid://yuuuyc68pjm8" path="res://src/characters/NPC/NPC.gd" id="1_75364"]
+[ext_resource type="AudioStream" uid="uid://pqgvomid7ixe" path="res://assets/audio/sfx/connect.wav" id="2_ck15w"]
+[ext_resource type="AudioStream" uid="uid://d3vy727hyr25y" path="res://assets/audio/sfx/disconnect.wav" id="3_5ttc1"]
+[ext_resource type="AudioStream" uid="uid://df3g3eyk3fao8" path="res://assets/audio/sfx/death.wav" id="4_0j6y6"]
+[ext_resource type="AudioStream" uid="uid://vay4bk1del6n" path="res://assets/audio/sfx/hit2.wav" id="5_u8s1j"]
+[ext_resource type="Shader" uid="uid://cqtpq68obqgkq" path="res://src/shaders/damage_flash.gdshader" id="6_6ecrv"]
+[ext_resource type="Texture2D" uid="uid://holr4osbvb5h" path="res://assets/sprites/playerNPC.png" id="7_yn2cm"]
+[ext_resource type="Script" uid="uid://b7x1p4s5lgiub" path="res://src/characters/camera.gd" id="8_55nt6"]
+[ext_resource type="Texture2D" uid="uid://box8ojc4m3kk8" path="res://assets/sprites/hit.png" id="9_hbob2"]
+[ext_resource type="Script" uid="uid://4tyc5urners" path="res://src/test/agent_movement.gd" id="10_wi2qf"]
+[ext_resource type="Theme" uid="uid://kl4uy5tx6k4b" path="res://src/theme.tres" id="11_ck15w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bsgwr"]
-shader = ExtResource("4_pqlo3")
+shader = ExtResource("6_6ecrv")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/factor = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kb1y3"]
-atlas = ExtResource("3_k70i8")
+atlas = ExtResource("7_yn2cm")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ppvc2"]
-atlas = ExtResource("3_k70i8")
+atlas = ExtResource("7_yn2cm")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bsgwr"]
-atlas = ExtResource("3_k70i8")
+atlas = ExtResource("7_yn2cm")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqlo3"]
-atlas = ExtResource("3_k70i8")
+atlas = ExtResource("7_yn2cm")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pgt8a"]
-atlas = ExtResource("3_k70i8")
+atlas = ExtResource("7_yn2cm")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ptetw"]
@@ -81,23 +82,23 @@ fill_to = Vector2(1, 1)
 radius = 19.0263
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lle6m"]
-atlas = ExtResource("9_ptetw")
+atlas = ExtResource("9_hbob2")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5efqo"]
-atlas = ExtResource("9_ptetw")
+atlas = ExtResource("9_hbob2")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bkyut"]
-atlas = ExtResource("9_ptetw")
+atlas = ExtResource("9_hbob2")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m5oe8"]
-atlas = ExtResource("9_ptetw")
+atlas = ExtResource("9_hbob2")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpso3"]
-atlas = ExtResource("9_ptetw")
+atlas = ExtResource("9_hbob2")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_537jr"]
@@ -128,17 +129,21 @@ animations = [{
 "speed": 13.19
 }]
 
-[node name="npc" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent")]
-collision_layer = 5
+[node name="npc" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "sprite")]
+collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 3.14159
-script = ExtResource("1_lo38k")
-streams = Array[AudioStream]([ExtResource("2_bsgwr"), ExtResource("3_pqlo3"), ExtResource("4_pgt8a"), ExtResource("5_lle6m")])
-SPEED = 150
+script = ExtResource("1_75364")
+streams = Array[AudioStream]([ExtResource("2_ck15w"), ExtResource("3_5ttc1"), ExtResource("4_0j6y6"), ExtResource("5_u8s1j")])
 navigation_agent = NodePath("NavigationAgent2D")
+sprite = NodePath("AnimatedSprite2D")
+SPEED = 150
+hp = 3
+max_hp = 3
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0
+debug_enabled = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 debug_path_custom_point_size = 10.0
 
@@ -153,6 +158,26 @@ frame_progress = 0.713078
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(0, 16)
 texture = SubResource("GradientTexture2D_kb1y3")
+
+[node name="ProgressBar" type="ProgressBar" parent="AnimatedSprite2D"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -41.0
+offset_right = 84.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(100, 0)
+theme = ExtResource("11_ck15w")
+max_value = 5.0
+value = 5.0
+show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kb1y3")
@@ -173,11 +198,10 @@ autostart = true
 one_shot = true
 
 [node name="enth_taker" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
+wait_time = 2.3
 
 [node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("4_kb1y3")
+script = ExtResource("8_55nt6")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"sfx"
@@ -194,7 +218,7 @@ frame = 4
 frame_progress = 1.0
 
 [node name="Test" type="Node" parent="." node_paths=PackedStringArray("target_node")]
-script = ExtResource("2_xrosd")
+script = ExtResource("10_wi2qf")
 testing = false
 target_node = NodePath("..")
 metadata/_custom_type_script = "uid://xhc664htnyvd"

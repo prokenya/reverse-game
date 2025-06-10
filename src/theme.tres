@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://kl4uy5tx6k4b"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://kl4uy5tx6k4b"]
 
 [ext_resource type="Texture2D" uid="uid://bjccrsej3my1c" path="res://assets/icons/button.png" id="1_if6vc"]
 [ext_resource type="FontFile" uid="uid://bj8twd8jhovqh" path="res://assets/font/PixeloidSans.ttf" id="2_ssy0u"]
@@ -11,21 +11,29 @@ texture = ExtResource("1_if6vc")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xh1a0"]
 texture = ExtResource("1_if6vc")
+modulate_color = Color(0.703808, 0.703808, 0.703808, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_km0ch"]
+texture = ExtResource("1_if6vc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aesle"]
+texture = ExtResource("1_if6vc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gvnfl"]
+texture = ExtResource("1_if6vc")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k27xv"]
 texture = ExtResource("1_if6vc")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssy0u"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ciq0"]
+texture = ExtResource("1_if6vc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vsku8"]
+texture = ExtResource("1_if6vc")
+modulate_color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pgyp1"]
+texture = ExtResource("1_if6vc")
 
 [sub_resource type="Gradient" id="Gradient_7v0db"]
 colors = PackedColorArray(0, 0, 0, 0.752941, 0, 0, 0, 0.752941)
@@ -72,7 +80,12 @@ Button/constants/outline_size = 0
 Button/styles/disabled = SubResource("StyleBoxTexture_m734d")
 Button/styles/focus = SubResource("StyleBoxTexture_if6vc")
 Button/styles/hover = SubResource("StyleBoxTexture_xh1a0")
+Button/styles/hover_mirrored = SubResource("StyleBoxTexture_km0ch")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_aesle")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_gvnfl")
 Button/styles/normal = SubResource("StyleBoxTexture_k27xv")
-Button/styles/pressed = SubResource("StyleBoxFlat_ssy0u")
+Button/styles/normal_mirrored = SubResource("StyleBoxTexture_2ciq0")
+Button/styles/pressed = SubResource("StyleBoxTexture_vsku8")
+Button/styles/pressed_mirrored = SubResource("StyleBoxTexture_pgyp1")
 ProgressBar/styles/background = SubResource("StyleBoxTexture_ssy0u")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_rnpv8")
