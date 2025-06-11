@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://yof7cddnosjr"]
+[gd_scene load_steps=8 format=3 uid="uid://yof7cddnosjr"]
 
 [ext_resource type="Script" uid="uid://10qpwsic6sf0" path="res://src/projectiles/arrow.gd" id="1_xqoie"]
 [ext_resource type="Texture2D" uid="uid://ba7b2hiejn0ax" path="res://assets/sprites/arrow.png" id="2_6gv7v"]
 [ext_resource type="AudioStream" uid="uid://bnlqbwcqvrfq7" path="res://assets/audio/sfx/hit.wav" id="3_6gv7v"]
 [ext_resource type="AudioStream" uid="uid://bsy5mqrbyuati" path="res://assets/audio/sfx/hit3.wav" id="3_6kahc"]
+[ext_resource type="AudioStream" uid="uid://d2w2biotbvj3k" path="res://assets/audio/sfx/arrow_hit_player.wav" id="4_toqk0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xqoie"]
 radius = 22.0
@@ -16,7 +17,7 @@ size = Vector2(5, 5)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_xqoie")
-streams = Array[AudioStream]([ExtResource("3_6gv7v"), ExtResource("3_6kahc")])
+streams = Array[AudioStream]([ExtResource("3_6gv7v"), ExtResource("3_6kahc"), ExtResource("4_toqk0")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1

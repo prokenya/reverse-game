@@ -37,6 +37,7 @@ func _ready() -> void:
 	
 	play_sound(0)
 	G.main.gui.set_NPC_status(true)
+	add_enth(100)
 	go_to(position) # for is_navigation_finished()
 	
 
@@ -46,25 +47,26 @@ func change_state(next_state:states):
 	match state:
 		states.HITS:
 			#random_movement = false
-			var pos = Vector2(global_position - player.global_position).normalized() * 100
-			await  go_to(pos)
+			var pos = Vector2(global_position - player.global_position).normalized() * 150
+			var angle = randf_range(-90.0, 90.0)
+			var random_angle_rad = deg_to_rad(angle)
+			var rotated_dir = global_position + pos.rotated(random_angle_rad)
+			await  go_to(rotated_dir)
 			if !navigation_agent.is_target_reachable():
-				await go_to(-player.global_position)
-			change_state(states.FOLLOW_PLAYER)
+				await go_to(-rotated_dir)
+			#change_state(states.FOLLOW_PLAYER)
 			
 			#random_movement = true
 				
 
 func  _physics_process(delta: float) -> void:
-	if is_dead:return
+	if is_dead or player.is_dead:return
 	super._physics_process(delta)
 	match state:
 		states.IDLE:
 			reset_navigation()
 		states.FOLLOW_PLAYER:
 			if (player.global_position - navigation_agent.get_final_position()).length() > 10:
-				if navigation_agent.is_navigation_finished():
-					change_state(states.HITS)
 				go_to(player.global_position)
 		states.GOTO:
 			if navigation_agent.is_navigation_finished():
@@ -88,6 +90,7 @@ func _on_collide_with_player_body_entered(body: Node2D) -> void:
 	
 	current_body = body
 	play_hit_anim()
+	change_state(states.HITS)
 
 
 var current_body:BaseCharacter
@@ -106,7 +109,6 @@ func play_hit_anim():
 	play_sound(3)
 	
 	await hit_anim.animation_finished
-	
 	hit_anim.visible = false
 
 func _on_collide_with_player_body_exited(body: Node2D) -> void:
@@ -136,6 +138,7 @@ func get_random_pitch_scale(min_pitch: float = 0.9, max_pitch: float = 1.1) -> f
 
 
 func death():
+	if player.is_dead:return
 	collision_shape.disabled = true
 	G.main.gui.set_enthusiasm(0)
 	

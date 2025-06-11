@@ -433,8 +433,10 @@ text = "Controls:
 
     M / Esc– Show Menu 
 
-[color=red]hint:[/color]
-Arrows fired near the player increase their attention, but if you hit the player, they take damage and if they die and you fail the level.
+[color=red]Hints:[/color]s
+1. You can only shoot while moving.
+2. Arrows fired near the player increase their attention. Hitting the player deals damage(the player has 3 HP) — if they die, you fail the level.
+3. The player can pass through the boss, but doing so will cause damage.
 
 [color=green]About the game:[/color]
 You are the boss in the game, and your task is to keep the player's attention so they don’t quit. But don’t go too easy on them — if it gets boring, they’ll leave.
@@ -558,6 +560,7 @@ libraries = {
 speed_scale = 5.0
 
 [node name="stats" type="PanelContainer" parent="GUI/gui"]
+visible = false
 layout_mode = 1
 offset_right = 292.0
 offset_bottom = 32.0

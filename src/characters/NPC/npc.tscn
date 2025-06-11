@@ -143,7 +143,6 @@ max_hp = 3
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0
-debug_enabled = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 debug_path_custom_point_size = 10.0
 
@@ -195,6 +194,7 @@ one_shot = true
 autostart = true
 
 [node name="hit_delay" type="Timer" parent="."]
+wait_time = 1.7
 one_shot = true
 
 [node name="enth_taker" type="Timer" parent="."]

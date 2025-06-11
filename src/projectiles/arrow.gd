@@ -15,11 +15,13 @@ func _physics_process(delta: float) -> void:
 	flight()
 
 	if ray_cast.is_colliding():
-		play_sound(1)
 		var body = ray_cast.get_collider()
 		if body is NPC:
 			body.add_hp(-1)
 			hide_arrow()
+			play_sound(2)
+		else:
+			play_sound(1)
 		disable_arrow()
 
 func flight():
