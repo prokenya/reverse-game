@@ -83,6 +83,7 @@ texture = ExtResource("4_qfy3w")
 hframes = 2
 
 [node name="spawn_animation" parent="." instance=ExtResource("5_mmqyw")]
+trail_enabled = false
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 0

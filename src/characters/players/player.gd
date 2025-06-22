@@ -10,8 +10,6 @@ var control:bool = false
 @onready var shot_timer: Timer = Timer.new()
 @export_range(0.2,10,0.1) var shot_delay:float = 0.7
 var shot_pressed:bool = false
-var can_shot:bool = true
-@onready var cant_shot: AudioStreamPlayer = $cant_shot
 
 func _ready() -> void:
 	add_timer()
@@ -31,12 +29,6 @@ func add_timer():
 func _physics_process(delta: float) -> void:
 	if !control: return
 
-	if velocity == Vector2.ZERO:
-		can_shot = false
-	else:
-		can_shot = true
-		if shot_pressed:
-			_on_shot_timer_timeout()
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_vector("move_left", "move_right","move_up","move_down")
 	if direction:
@@ -47,7 +39,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, speed)
 
 	move_and_slide()
-	print(can_shot)
 
 
 
@@ -56,8 +47,6 @@ func _input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("shot"):
 		shot_pressed = true
-		if !can_shot:
-			cant_shot.play()
 		_on_shot_timer_timeout()
 	if Input.is_action_just_released("shot"):
 		shot_pressed = false
@@ -70,7 +59,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_shot_timer_timeout() -> void:
-	if !shot_pressed or !shot_timer.is_stopped() or !can_shot:
+	if !shot_pressed or !shot_timer.is_stopped():
 		return
 	shot_timer.start()
 	

@@ -136,6 +136,7 @@ position = Vector2(1, -48)
 shape = SubResource("RectangleShape2D_x88g4")
 
 [node name="spawn_animation" parent="." instance=ExtResource("5_juw4u")]
+trail_enabled = false
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 0
